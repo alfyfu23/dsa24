@@ -1,0 +1,39 @@
+# Compiled executables
+PA1/1-1
+PA1/1-2
+PA2/2-1
+PA2/2-2
+PA2/2-3
+PA3/3-1
+PA3/3-2
+PA3/3-3
+PA4/4-1
+PA4/4-2
+PA4/4-3
+LAB1/solution_1
+LAB1/solution_2
+LAB1/solution_3
+LAB1/test
+LAB1/gdb
+LAB1/rand_input
+LAB1/check_input
+LAB4/AVL
+LAB4/splay
+LAB4/input
+LAB4/splayinput
+LAB4/check
+
+# Object files
+*.o
+
+# Large test data files
+*.in
+*.out
+*.ans
+*.txt
+*.zip
+output.txt
+rand.in
+
+# OS files
+.DS_Store
