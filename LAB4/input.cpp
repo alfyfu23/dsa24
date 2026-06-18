@@ -23,8 +23,9 @@ int main()
         {
             auto it = key.begin();
             advance(it, rand() % key.size());
+            int val = *it;
             key.erase(it);
-            out << "B " << *it << endl;
+            out << "B " << val << endl;
         }
         else if (op == 2) 
         {

@@ -6,9 +6,9 @@ int main(){
     // 初始化随机数种子  
     srand(time(0));  
       
-    // 随机生成 n 和 m，范围在 1900 到 2000 之间  
-    int n = 2000;  
-    int m = 2000;  
+    // 随机生成 n 和 m，范围在 10 到 100 之间  
+    int n = rand() % 91 + 10;  
+    int m = rand() % 91 + 10;
       
     // 打印 n 和 m  
     printf("%d %d\n", n, m);  
@@ -17,12 +17,12 @@ int main(){
     for(int i = 1; i <= n; ++i){  
         for(int j = 1; j <= m; ++j){  
             // 矩阵元素在 0 到 1000 之间  
-            printf("%d ", rand() % 100001);  
+            printf("%d ", rand() % 1001);  
         }  
         printf("\n");  
     }  
       
-    int q = 10000;  
+    int q = rand() % 11 + 10;  
     printf("%d\n", q);  
       
     // 生成并打印查询  

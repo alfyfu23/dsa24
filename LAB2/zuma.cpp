@@ -50,10 +50,14 @@ void play(int t) {
 }
 
 int main() {
-    fgets(a, 4000000, stdin);
+    if (!fgets(a, 4000000, stdin)) {
+        error("Failed to read initial sequence.");
+    }
     len = strlen(a);
-    --len;
-    a[len] = '\0';
+    if (len > 0 && a[len - 1] == '\n') {
+        --len;
+        a[len] = '\0';
+    }
     check_initial_sequence();
 
     if (scanf("%d", &m) != 1) {

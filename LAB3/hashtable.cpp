@@ -49,8 +49,8 @@ int bidirectional_quadratic_probe::operator()(hash_entry *Table, int table_size,
     if (direction == 0)
     {
         direction = 1;
-        int d = (long long)step * step % table_size + (long long)step * step % table_size;
-        return (last_choice - d + table_size) % table_size;
+        int d = ((long long)step * step % table_size + (long long)step * step % table_size) % table_size;
+        return ((last_choice - d) % table_size + table_size) % table_size;
     }
     if (direction == 1)
     {

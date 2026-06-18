@@ -11,11 +11,44 @@ struct hash_entry
         my_string = NULL;
         my_data = 0;
     }
-    // 构造函数，初始化字符串和数据
-    hash_entry(char *str, int data) : my_data(data)
+    hash_entry(const char *str, int data) : my_data(data)
     {
         my_string = new char[strlen(str) + 1];
         strcpy(my_string, str);
+    }
+    hash_entry(const hash_entry &other) : my_data(other.my_data)
+    {
+        if (other.my_string)
+        {
+            my_string = new char[strlen(other.my_string) + 1];
+            strcpy(my_string, other.my_string);
+        }
+        else
+        {
+            my_string = NULL;
+        }
+    }
+    hash_entry &operator=(const hash_entry &other)
+    {
+        if (this != &other)
+        {
+            delete[] my_string;
+            my_data = other.my_data;
+            if (other.my_string)
+            {
+                my_string = new char[strlen(other.my_string) + 1];
+                strcpy(my_string, other.my_string);
+            }
+            else
+            {
+                my_string = NULL;
+            }
+        }
+        return *this;
+    }
+    ~hash_entry()
+    {
+        delete[] my_string;
     }
 };
 
@@ -80,13 +113,19 @@ struct hashtable
     {
         Table = new hash_entry[table_size];
     }
+    ~hashtable()
+    {
+        delete[] Table;
+    }
     bool insert(hash_entry entry)
     {
         int last_choice = (*my_hashing)(entry.my_string, table_size);
         my_collision->init();
+        int probes = 0;
         while (Table[last_choice].my_string != NULL)
-        { // loop infinitely? return false when no more space?
+        {
             last_choice = (*my_collision)(Table, table_size, last_choice);
+            if (++probes >= table_size) return false;
         }
         Table[last_choice] = entry;
         return true;
@@ -95,10 +134,12 @@ struct hashtable
     {
         int last_choice = (*my_hashing)(query_string, table_size);
         my_collision->init();
+        int probes = 0;
         while (Table[last_choice].my_string != NULL &&
                strcmp(Table[last_choice].my_string, query_string) != 0)
-        { // 未处理的情况: 哈希表已满?
+        {
             last_choice = (*my_collision)(Table, table_size, last_choice);
+            if (++probes >= table_size) return -1;
         }
         if (Table[last_choice].my_string == NULL)
         {

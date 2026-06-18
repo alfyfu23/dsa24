@@ -50,7 +50,9 @@ void divide(unsigned long long array[], unsigned long long temp[], int left, int
 // 测试函数，判断点(px,py)是否在点(x,y)的逆时针方向
 bool test(unsigned long long x, unsigned long long y, unsigned long long px, unsigned long long py)
 {
-    long long flag=(px-x)*(py-y)-px*py;
+    long long dx = (long long)px - (long long)x;
+    long long dy = (long long)py - (long long)y;
+    long long flag = dx * dy - (long long)px * (long long)py;
     if (flag>0)
     {
         return true;
@@ -64,35 +66,34 @@ bool test(unsigned long long x, unsigned long long y, unsigned long long px, uns
 int main()
 {
     // 读取输入的点数
-    scanf("%d", &n);
-    unsigned long long x[n], y[n];
+    scanf("%u", &n);
+    unsigned long long *x = new unsigned long long[n];
+    unsigned long long *y = new unsigned long long[n];
     // 读取输入的点的x坐标
     for (int i=0; i<n; i++)
     {
-        scanf("%lld", &x[i]);
+        scanf("%llu", &x[i]);
     }
     // 读取输入的点的y坐标
     for (int i=0; i<n; i++)
     {
-        scanf("%lld", &y[i]);
+        scanf("%llu", &y[i]);
     }
     // 创建一个临时数组
     unsigned long long *temp = new unsigned long long[n];
     // 对x坐标和y坐标进行排序
     divide(x, temp, 0, n-1);
     divide(y, temp, 0, n-1);
-    // 释放临时数组
     delete[] temp;
     
-    // 读取输入的查询数
-    scanf("%d", &m);
+    scanf("%u", &m);
     // 对每个查询进行处理
     for (int i=0; i<m; i++)
     {
         int left=0, right=n-1, mid;
         unsigned long long px, py;
         // 读取查询的点的坐标
-        scanf("%lld %lld", &px, &py);
+        scanf("%llu %llu", &px, &py);
         // 使用二分查找找到查询点的位置
         while (left<=right)
         {
@@ -109,5 +110,7 @@ int main()
         // 输出查询点的位置
         printf("%d\n", left);
     }
+    delete[] x;
+    delete[] y;
     return 0;
 }

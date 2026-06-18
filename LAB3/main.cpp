@@ -16,13 +16,13 @@ int main()
         scanf("%d", &type);
         if (type == 0)
         {
-            scanf("%s", buffer);
+            scanf("%999s", buffer);
             scanf("%d", &data);
             table.insert(hash_entry(buffer, data));
         }
         else if (type == 1)
         {
-            scanf("%s", buffer);
+            scanf("%999s", buffer);
             printf("%d\n", table.query(buffer));
         }
         else
